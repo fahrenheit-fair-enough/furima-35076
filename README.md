@@ -16,7 +16,7 @@
 ### Association
 
 - has_many :products
-- has_many :purchase records
+- has_many :purchase_records
 
 ## products テーブル
 
@@ -30,11 +30,12 @@
 | prefecture_id                  | integer    | null: false       |
 | scheduled_delivery_id          | integer    | null: false       |
 | price                          | integer    | null: false       |
+| user                           | references | foreign_key: true |
 
 ### Association
 
 - belongs_to :user
-- has_one    :purchase record
+- has_one    :purchase_record
 
 ## purchase records テーブル
 
@@ -58,9 +59,9 @@
 | addresses             | string     | null: false       |
 | building              | string     |                   |
 | phone_number          | string     | null: false       |
-| purchase record       | references | foreign_key: true |
+| purchase_record       | references | foreign_key: true |
 
 ### Association
 
 - belongs_to :user
-- has_one    :purchase record
+- has_one    :purchase_record
