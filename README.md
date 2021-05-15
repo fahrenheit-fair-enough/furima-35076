@@ -48,7 +48,7 @@
 
 - belongs_to :user
 - belongs_to :product
-- belongs_to :shipping_address
+- has_one :shipping_address
 
 ## shipping address テーブル
 
@@ -64,5 +64,4 @@
 
 ### Association
 
-- belongs_to :user
 - belongs_to :purchase_record
