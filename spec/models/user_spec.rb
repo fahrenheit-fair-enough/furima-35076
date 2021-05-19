@@ -8,10 +8,7 @@ RSpec.describe User, type: :model do
 
     it 'nameとemail、passwordとpassword_confirmationが存在すれば登録できること' do
       expect(@user).to be_valid
-
     end
-
-
 
     it 'nick_nameが空では登録できないこと' do
       @user.nick_name = ''
@@ -55,40 +52,40 @@ RSpec.describe User, type: :model do
     it 'emailに@がないと登録できないこと' do
       @user.email = 'abcgmail.com'
       @user.valid?
-      expect(@user.errors.full_messages).to include("Email is invalid")
+      expect(@user.errors.full_messages).to include('Email is invalid')
     end
 
     it 'family_nameが全角入力でなければ登録できないこと' do
-      @user.family_name = "ｱｲｳｴｵ"
+      @user.family_name = 'ｱｲｳｴｵ'
       @user.valid?
-      expect(@user.errors[:family_name]).to include("is invalid. Input full-width characters.")
+      expect(@user.errors[:family_name]).to include('is invalid. Input full-width characters.')
     end
 
     it 'first_nameが全角入力でなければ登録できないこと' do
-      @user.first_name = "ｱｲｳｴｵ"
+      @user.first_name = 'ｱｲｳｴｵ'
       @user.valid?
-      expect(@user.errors[:first_name]).to include("is invalid. Input full-width characters.")
+      expect(@user.errors[:first_name]).to include('is invalid. Input full-width characters.')
     end
 
     it 'family_name_kanaが全角カタカナでなければ登録できないこと' do
-      @user.family_name_kana = "あいうえお"
+      @user.family_name_kana = 'あいうえお'
       @user.valid?
-      expect(@user.errors[:family_name_kana]).to include("is invalid. Input full-width katakana characters.")
+      expect(@user.errors[:family_name_kana]).to include('is invalid. Input full-width katakana characters.')
     end
 
     it 'first_name_kanaが全角カタカナでなければ登録できないこと' do
-      @user.first_name_kana = "あいうえお"
+      @user.first_name_kana = 'あいうえお'
       @user.valid?
-      expect(@user.errors[:first_name_kana]).to include("is invalid. Input full-width katakana characters.")
+      expect(@user.errors[:first_name_kana]).to include('is invalid. Input full-width katakana characters.')
     end
 
-    it "password_confirmationがない場合は登録できないこと" do
+    it 'password_confirmationがない場合は登録できないこと' do
       @user.password_confirmation = ''
       @user.valid?
       expect(@user.errors[:password_confirmation]).to include("doesn't match Password")
     end
 
-    it "birth_dateがない場合は登録できないこと" do
+    it 'birth_dateがない場合は登録できないこと' do
       @user.birth_date = ''
       @user.valid?
       expect(@user.errors[:birth_date]).to include("can't be blank")
@@ -107,6 +104,5 @@ RSpec.describe User, type: :model do
       @user.valid?
       expect(@user.errors.full_messages).to include('Password is invalid')
     end
-
   end
 end
