@@ -94,16 +94,16 @@ RSpec.describe User, type: :model do
         expect(@user.errors.full_messages).to include("First name can't be blank")
       end
 
-      it 'family_name_kanaが空では登録できないこと' do
-        @user.family_name_kana = ''
+      it 'family_name_kanaが半角カタカナでは登録できないこと' do
+        @user.family_name_kana = 'ｱｲｳｴｵ'
         @user.valid?
-        expect(@user.errors.full_messages).to include("Family name kana can't be blank")
+        expect(@user.errors.full_messages).to include('Family name kana is invalid. Input full-width katakana characters.')
       end
 
-      it 'first_name_kanaが空では登録できないこと' do
-        @user.first_name_kana = ''
+      it 'first_name_kanaが半角カタカナでは登録できないこと' do
+        @user.first_name_kana = 'ｱｲｳｴｵ'
         @user.valid?
-        expect(@user.errors.full_messages).to include("First name kana can't be blank")
+        expect(@user.errors.full_messages).to include('First name kana is invalid. Input full-width katakana characters.')
       end
 
       it 'password_confirmationがない場合は登録できないこと' do
