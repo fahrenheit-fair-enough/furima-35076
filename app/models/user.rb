@@ -6,8 +6,6 @@ class User < ApplicationRecord
 
   with_options presence: true do
     validates :nick_name
-    validates :email
-    validates :password, format: { with: /\A(?=.*?[a-z])(?=.*?\d)[a-z\d]+\z/i }
     with_options format: { with: /\A[ぁ-んァ-ヶ一-龥々ー]+\z/, message: 'is invalid. Input full-width characters.' } do
       validates :family_name
       validates :first_name
@@ -17,5 +15,6 @@ class User < ApplicationRecord
       validates :first_name_kana
     end
     validates :birth_date
+    validates :password, format: { with: /\A(?=.*?[a-z])(?=.*?\d)[a-z\d]+\z/i }
   end
 end
