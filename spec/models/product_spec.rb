@@ -7,10 +7,25 @@ RSpec.describe Product, type: :model do
     end
 
     context '商品の出品ができる時' do
-      it 'ユーザーログイン時、image、name、explain、category_id、status_id、shipping_free_status_id、prefecture_id、scheduled_delivery_id、price、が存在すれば出品できること' do
+      it 'ユーザーログイン時にimage、name、explain、category_id、status_id、shipping_free_status_id、prefecture_id、scheduled_delivery_id、price、が存在すれば出品できること' do
         expect(@product).to be_valid
       end
     end
+
+
+
+            # 商品画像を1枚つけることが必須であること
+            # 商品名が必須であること
+            # 商品の説明が必須であること
+            # カテゴリーの情報が必須であること
+            # 商品の状態についての情報が必須であること
+            # 配送料の負担についての情報が必須であること
+            # 発送元の地域についての情報が必須であること
+            # 発送までの日数についての情報が必須であること
+            # 販売価格についての情報が必須であること
+            # 販売価格は、¥300~¥9,999,999の間のみ保存可能であること
+            # 販売価格は半角数字のみ保存可能であること
+
 
 
     context '商品の出品ができない時' do
@@ -69,6 +84,8 @@ RSpec.describe Product, type: :model do
       end
 
 
+      # 販売価格は、¥300~¥9,999,999の間のみ保存可能であること
+
 
       it '販売価格は、¥0~¥299は登録できないこと' do
         @product.price = 299
@@ -76,11 +93,16 @@ RSpec.describe Product, type: :model do
         expect(@product.errors.full_messages).to include("Price is not included in the list")
       end
 
+
       it '販売価格は、¥10,000,000~は登録できないこと' do
         @product.price = 10000000
         @product.valid?
         expect(@product.errors.full_messages).to include("Price is not included in the list")
       end
+
+
+            # 販売価格は半角数字のみ保存可能であること
+
 
       it '販売価格は全角数字は登録できないこと' do
         @product.price = '１２３４５'
