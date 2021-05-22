@@ -18,5 +18,6 @@ class Product < ApplicationRecord
     validates :prefecture_id
     validates :scheduled_delivery_id
     validates :price
+    validates :image
   end
 end
