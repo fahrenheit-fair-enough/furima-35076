@@ -9,15 +9,20 @@ class Product < ApplicationRecord
   belongs_to :prefecture
   belongs_to :scheduled_delivery
 
-  with_options presence: true do
-    validates :name
-    validates :explain
-    validates :category_id
-    validates :status_id
-    validates :shipping_free_status_id
-    validates :prefecture_id
-    validates :scheduled_delivery_id
-    validates :price
-    validates :image
+
+  validates_inclusion_of :price, in: 300..9999999
+    with_options presence: true do
+      validates :name
+      validates :explain
+      validates :price
+      validates :image
+
+    with_options numericality: { other_than: 1 } do
+      validates :category_id
+      validates :status_id
+      validates :shipping_free_status_id
+      validates :prefecture_id
+      validates :scheduled_delivery_id
+    end
   end
 end
