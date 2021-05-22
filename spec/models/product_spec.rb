@@ -12,21 +12,17 @@ RSpec.describe Product, type: :model do
       end
     end
 
-
-
-            # 商品画像を1枚つけることが必須であること
-            # 商品名が必須であること
-            # 商品の説明が必須であること
-            # カテゴリーの情報が必須であること
-            # 商品の状態についての情報が必須であること
-            # 配送料の負担についての情報が必須であること
-            # 発送元の地域についての情報が必須であること
-            # 発送までの日数についての情報が必須であること
-            # 販売価格についての情報が必須であること
-            # 販売価格は、¥300~¥9,999,999の間のみ保存可能であること
-            # 販売価格は半角数字のみ保存可能であること
-
-
+    # 商品画像を1枚つけることが必須であること
+    # 商品名が必須であること
+    # 商品の説明が必須であること
+    # カテゴリーの情報が必須であること
+    # 商品の状態についての情報が必須であること
+    # 配送料の負担についての情報が必須であること
+    # 発送元の地域についての情報が必須であること
+    # 発送までの日数についての情報が必須であること
+    # 販売価格についての情報が必須であること
+    # 販売価格は、¥300~¥9,999,999の間のみ保存可能であること
+    # 販売価格は半角数字のみ保存可能であること
 
     context '商品の出品ができない時' do
       it 'imageがないと登録できないこと' do
@@ -83,33 +79,27 @@ RSpec.describe Product, type: :model do
         expect(@product.errors.full_messages).to include("Price can't be blank")
       end
 
-
       # 販売価格は、¥300~¥9,999,999の間のみ保存可能であること
-
 
       it '販売価格は、¥0~¥299は登録できないこと' do
         @product.price = 299
         @product.valid?
-        expect(@product.errors.full_messages).to include("Price is not included in the list")
+        expect(@product.errors.full_messages).to include('Price is not included in the list')
       end
-
 
       it '販売価格は、¥10,000,000~は登録できないこと' do
-        @product.price = 10000000
+        @product.price = 10_000_000
         @product.valid?
-        expect(@product.errors.full_messages).to include("Price is not included in the list")
+        expect(@product.errors.full_messages).to include('Price is not included in the list')
       end
 
-
-            # 販売価格は半角数字のみ保存可能であること
-
+      # 販売価格は半角数字のみ保存可能であること
 
       it '販売価格は全角数字は登録できないこと' do
         @product.price = '１２３４５'
         @product.valid?
-        expect(@product.errors.full_messages).to include("Price is not included in the list")
+        expect(@product.errors.full_messages).to include('Price is not included in the list')
       end
-
     end
   end
 end
