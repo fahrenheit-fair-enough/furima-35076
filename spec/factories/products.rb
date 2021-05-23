@@ -15,8 +15,6 @@ FactoryBot.define do
   end
 end
 
-
-
 # 以下DB、READMEのテーブル参照しながら記載
 # | Column                         | Type       | Options           |
 # | ------------------------------ | ---------- | ----------------- |
