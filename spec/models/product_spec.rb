@@ -79,6 +79,47 @@ RSpec.describe Product, type: :model do
         expect(@product.errors.full_messages).to include("Price can't be blank")
       end
 
+      #下記models/product.rbを参照に、アクティブハッシュの5つのカラムについてバリデーションであるother_than: 1 を確かめるテストを5つ
+      # with_options numericality: { other_than: 1 } do
+      #   validates :category_id
+      #   validates :status_id
+      #   validates :shipping_free_status_id
+      #   validates :prefecture_id
+      #   validates :scheduled_delivery_id
+
+
+      it 'カテゴリーの情報が---では登録できないこと' do
+        @product.category_id = 1
+        @product.valid?
+        expect(@product.errors.full_messages).to include("Category must be other than 1")
+      end
+
+      it '商品の状態についての情報が---では登録できないこと' do
+        @product.status_id = 1
+        @product.valid?
+        expect(@product.errors.full_messages).to include("Status must be other than 1")
+      end
+
+      it '配送料の負担についての情報が---では登録できないこと' do
+        @product.shipping_free_status_id = 1
+        @product.valid?
+        expect(@product.errors.full_messages).to include("Shipping free status must be other than 1")
+      end
+
+      it '発送元の地域についての情報が---では登録できないこと' do
+        @product.prefecture_id = 1
+        @product.valid?
+        expect(@product.errors.full_messages).to include("Prefecture must be other than 1")
+      end
+
+      it '発送までの日数についての情報が---では登録できないこと' do
+        @product.scheduled_delivery_id = 1
+        @product.valid?
+        expect(@product.errors.full_messages).to include("Scheduled delivery must be other than 1")
+      end
+
+
+
       # 販売価格は、¥300~¥9,999,999の間のみ保存可能であること
 
       it '販売価格は、¥0~¥299は登録できないこと' do
@@ -95,11 +136,18 @@ RSpec.describe Product, type: :model do
 
       # 販売価格は半角数字のみ保存可能であること
 
-      it '販売価格は全角数字は登録できないこと' do
+      it '販売価格は全角数字では登録できないこと' do
         @product.price = '１２３４５'
         @product.valid?
         expect(@product.errors.full_messages).to include('Price is not included in the list')
       end
+
+      it '販売価格は英数字混合では登録できないこと' do
+        @product.price = '123abc'
+        @product.valid?
+        expect(@product.errors.full_messages).to include('Price is not included in the list')
+      end
+
     end
   end
 end

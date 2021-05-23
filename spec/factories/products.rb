@@ -9,13 +9,15 @@ FactoryBot.define do
     scheduled_delivery_id { 2 }
     price { 300 }
     association :user
-    # image
     after(:build) do |product|
       product.image.attach(io: File.open('public/images/test_image.png'), filename: 'test_image.png')
     end
   end
 end
 
+
+
+# 以下DB、READMEのテーブル参照しながら記載
 # | Column                         | Type       | Options           |
 # | ------------------------------ | ---------- | ----------------- |
 # | name                           | string     | null: false       |
