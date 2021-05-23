@@ -130,7 +130,7 @@
 
         <% @products.each do |product| %>
           <li class='list'>
-            <%= link_to "#" do %>                   <%# new_product_path   商品詳細表示機能の際に変更を加えていく %>
+            <%= link_to new_product_path do %>
             <div class='item-img-content'>
               <%= image_tag product.image, class: "item-img" %>
 
@@ -160,7 +160,7 @@
       <% if @products.length == 0 %>
 
       <li class='list'>
-        <%= link_to '#' do %>
+        <%= link_to new_product_path do %>
         <%= image_tag "https://tech-master.s3.amazonaws.com/uploads/curriculums/images/Rails1-4/sample.jpg", class: "item-img" %>
         <div class='item-info'>
           <h3 class='item-name'>
