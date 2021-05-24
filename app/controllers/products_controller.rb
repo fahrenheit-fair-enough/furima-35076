@@ -1,6 +1,6 @@
 class ProductsController < ApplicationController
   before_action :authenticate_user!, expect: [:index, :show]
-  before_action :select_product, only: [:show, :edit, :update]
+  before_action :select_product, only: [:show, :edit, :update, :destroy]
   before_action :contributor_confirmation, only: [:edit, :update]
 
   def index
@@ -32,6 +32,11 @@ class ProductsController < ApplicationController
     else
       render :edit
     end
+  end
+
+  def destroy
+    @product.destroy
+    redirect_to root_path
   end
 
   private
