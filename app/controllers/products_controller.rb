@@ -1,5 +1,6 @@
 class ProductsController < ApplicationController
-  before_action :authenticate_user!, only: [:new, :create]
+  before_action :authenticate_user!, expect: [:index, :show ]
+  before_action :@product = Product.find(params[:id]), only: [:show, :edit, :update ]
 
   def index
     @products = Product.includes(:user).order('created_at DESC')
@@ -19,23 +20,19 @@ class ProductsController < ApplicationController
   end
 
   def show
-    @product = Product.find(params[:id])
   end
 
   def edit
-    @product = Product.find(params[:id])
+    redirect_to root_path if current_user.id != @product.user_id
   end
 
   def update
-    @product = Product.find(params[:id])
-    @product.update(product_params)
     if @product.save
       redirect_to root_path
     else
       render :edit
     end
   end
-
 
   private
 
