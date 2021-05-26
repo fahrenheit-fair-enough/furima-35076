@@ -1,7 +1,8 @@
 class Product < ApplicationRecord
   belongs_to :user
-  # has_one    :purchase_record
+  has_one    :purchase_record
   has_one_attached :image
+  
   extend ActiveHash::Associations::ActiveRecordExtensions
   belongs_to :category
   belongs_to :status
@@ -25,3 +26,18 @@ class Product < ApplicationRecord
     end
   end
 end
+
+
+## products テーブル
+
+# | Column                         | Type       | Options           |
+# | ------------------------------ | ---------- | ----------------- |
+# | name                           | string     | null: false       |
+# | explain                        | text       | null: false       |
+# | category_id                    | integer    | null: false       |
+# | status_id                      | integer    | null: false       |
+# | shipping_free_status_id        | integer    | null: false       |
+# | prefecture_id                  | integer    | null: false       |
+# | scheduled_delivery_id          | integer    | null: false       |
+# | price                          | integer    | null: false       |
+# | user                           | references | foreign_key: true |
