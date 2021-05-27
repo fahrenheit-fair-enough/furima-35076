@@ -1,5 +1,6 @@
 class PurchaseRecordsController < ApplicationController
-  before_action :authenticate_user!, except: :index
+  before_action :authenticate_user!
+  before_action :back_to_top
 
   def index
     @product = Product.find(params[:product_id])
@@ -24,6 +25,13 @@ class PurchaseRecordsController < ApplicationController
 
   def purchase_address_params
     params.require(:purchase_address).permit(:postal_code, :prefecture_id, :city, :addresses, :building, :phone_number).merge(product_id: params[:product_id],user_id: current_user.id, token: params[:token])
+  end
+
+  def back_to_top
+    @product = Product.find(params[:product_id])
+    if current_user.id == @product.user_id || @product.purchase_record != nil
+       redirect_to root_path
+    end
   end
 
   def pay_item

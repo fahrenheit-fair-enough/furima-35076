@@ -1,5 +1,5 @@
 class ProductsController < ApplicationController
-  before_action :authenticate_user!, expect: [:index, :show]
+  before_action :authenticate_user!, except: [:index, :show]
   before_action :select_product, only: [:show, :edit, :update, :destroy]
   before_action :contributor_confirmation, only: [:edit, :update, :destroy]
 
@@ -47,7 +47,7 @@ class ProductsController < ApplicationController
   end
 
   def contributor_confirmation
-    redirect_to root_path if current_user.id != @product.user_id
+    redirect_to root_path if current_user.id != @product.user_id || @product.purchase_record != nil
   end
 
   def select_product
