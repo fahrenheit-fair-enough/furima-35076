@@ -49,7 +49,7 @@ RSpec.describe PurchaseAddress, type: :model do
       end
 
       it '郵便番号はハイフンがないと保存できないこと' do
-        @purchase_address.postal_code = 1_234_567
+        @purchase_address.postal_code = '1_234_567'
         @purchase_address.valid?
         expect(@purchase_address.errors.full_messages).to include('Postal code is invalid. Include hyphen(-)')
       end
@@ -96,6 +96,12 @@ RSpec.describe PurchaseAddress, type: :model do
         @purchase_address.phone_number = '090123456789'
         @purchase_address.valid?
         expect(@purchase_address.errors.full_messages).to include('Phone number is too long (maximum is 11 characters)')
+      end
+
+      it '電話番号は英数混合では保存できないこと' do
+        @purchase_address.phone_number = '01234abcdef'
+        @purchase_address.valid?
+        expect(@purchase_address.errors.full_messages).to include('Phone number is not a number')
       end
 
       # クレジットカード情報は必須であり、正しいクレジットカードの情報で無いときは決済できないこと
