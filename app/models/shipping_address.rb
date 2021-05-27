@@ -2,9 +2,6 @@ class ShippingAddress < ApplicationRecord
   belongs_to :purchase_record
 end
 
-
-
-
 # README shipping address テーブル 参照に記入
 # | Column                | Type       | Options           |
 # | --------------------- | ---------- | ----------------- |

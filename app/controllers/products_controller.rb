@@ -47,7 +47,7 @@ class ProductsController < ApplicationController
   end
 
   def contributor_confirmation
-    redirect_to root_path if current_user.id != @product.user_id || @product.purchase_record != nil
+    redirect_to root_path if current_user.id != @product.user_id || !@product.purchase_record.nil?
   end
 
   def select_product

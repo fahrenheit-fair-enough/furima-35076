@@ -7,8 +7,6 @@ class PurchaseRecordsController < ApplicationController
     @purchase_address = PurchaseAddress.new
   end
 
-
-
   def create
     @product = Product.find(params[:product_id])
     @purchase_address = PurchaseAddress.new(purchase_address_params)
@@ -24,26 +22,25 @@ class PurchaseRecordsController < ApplicationController
   private
 
   def purchase_address_params
-    params.require(:purchase_address).permit(:postal_code, :prefecture_id, :city, :addresses, :building, :phone_number).merge(product_id: params[:product_id],user_id: current_user.id, token: params[:token])
+    params.require(:purchase_address).permit(:postal_code, :prefecture_id, :city, :addresses, :building, :phone_number).merge(
+      product_id: params[:product_id], user_id: current_user.id, token: params[:token]
+    )
   end
 
   def back_to_top
     @product = Product.find(params[:product_id])
-    if current_user.id == @product.user_id || @product.purchase_record != nil
-       redirect_to root_path
-    end
+    redirect_to root_path if current_user.id == @product.user_id || !@product.purchase_record.nil?
   end
 
   def pay_item
-    Payjp.api_key = ENV["PAYJP_SECRET_KEY"]  
+    Payjp.api_key = ENV['PAYJP_SECRET_KEY']
     Payjp::Charge.create(
-      amount: @product.price,  
-      card: purchase_address_params[:token],    
-      currency: 'jpy'                 
+      amount: @product.price,
+      card: purchase_address_params[:token],
+      currency: 'jpy'
     )
   end
 end
-
 
 # README purchase records テーブル 参照に記入
 # | Column    | Type       | Options           |
@@ -56,8 +53,6 @@ end
 # - belongs_to :user
 # - belongs_to :product
 # - has_one :shipping_address
-
-
 
 # README shipping address テーブル 参照に記入
 # | Column                | Type       | Options           |
