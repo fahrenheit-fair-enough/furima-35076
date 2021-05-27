@@ -15,10 +15,13 @@ RSpec.describe PurchaseAddress, type: :model do
           # 参照記述事項
           # :postal_code, :prefecture_id, :city, :addresses, :building, :phone_number,
 
-          # クレジットカード決済ができること
 
     context '商品の購入ができる時' do
-      it 'ログイン状態の出品者以外のユーザーのみが購入商品選択時、postal_code、prefecture_id、city、addresses、building、phone_number、を適切に入力すると、商品の購入ができること' do
+      it 'ログイン状態の出品者以外のユーザーのみが購入商品選択時、postal_code、prefecture_id、city、addresses、phone_number、を適切に入力すると、商品の購入ができること' do
+        expect(@purchase_address).to be_valid
+      end
+
+      it 'ログイン状態の出品者以外のユーザーのみが購入商品選択時、building、が空欄でも商品の購入ができること' do
         expect(@purchase_address).to be_valid
       end
     end
@@ -103,9 +106,15 @@ RSpec.describe PurchaseAddress, type: :model do
 
 
 
-          # クレジットカードの情報は購入の都度入力させること
           # クレジットカード情報は必須であり、正しいクレジットカードの情報で無いときは決済できないこと
 
+
+
+      it 'クレジットカード情報がないと決済できないこと' do
+        @purchase_address.token = ""
+        @purchase_address.valid?
+        expect(@purchase_address.errors.full_messages).to include("Token can't be blank")
+      end
 
     end
   end
