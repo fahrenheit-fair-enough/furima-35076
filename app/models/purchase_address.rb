@@ -10,7 +10,8 @@ class PurchaseAddress
     validates :prefecture_id,  numericality: { other_than: 1 }
     validates :city
     validates :addresses
-    validates :phone_number
+    validates :phone_number, length: { maximum: 11 }
+    validates :phone_number, numericality: true
 
 
   end
