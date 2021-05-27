@@ -13,10 +13,12 @@ RSpec.describe PurchaseAddress, type: :model do
 
           # ログイン状態の出品者以外のユーザーのみ、必要な情報を適切に入力すると、商品の購入ができること
           # 参照記述事項
-          # :postal_code, :prefecture_id, :city, :addresses, :phone_number,
+          # :postal_code, :prefecture_id, :city, :addresses, :building, :phone_number,
+
+          # クレジットカード決済ができること
 
     context '商品の購入ができる時' do
-      it 'ログイン状態の出品者以外のユーザーのみが購入商品選択時、postal_code、prefecture_id、city、addresses、phone_number、を適切に入力すると、商品の購入ができること' do
+      it 'ログイン状態の出品者以外のユーザーのみが購入商品選択時、postal_code、prefecture_id、city、addresses、building、phone_number、を適切に入力すると、商品の購入ができること' do
         expect(@purchase_address).to be_valid
       end
     end
@@ -98,6 +100,13 @@ RSpec.describe PurchaseAddress, type: :model do
         @purchase_address.valid?
         expect(@purchase_address.errors.full_messages).to include("Phone number is too long (maximum is 11 characters)")
       end
+
+
+
+          # クレジットカードの情報は購入の都度入力させること
+          # クレジットカード情報は必須であり、正しいクレジットカードの情報で無いときは決済できないこと
+
+
     end
   end
 end

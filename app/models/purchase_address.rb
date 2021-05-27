@@ -1,6 +1,6 @@
 class PurchaseAddress
   include ActiveModel::Model
-  attr_accessor :user_id, :product_id, :postal_code, :prefecture_id, :city, :addresses, :building, :phone_number, :purchase_record
+  attr_accessor :user_id, :product_id, :postal_code, :prefecture_id, :city, :addresses, :building, :phone_number, :purchase_record, :token
 
   with_options presence: true do
     validates :user_id
@@ -12,6 +12,8 @@ class PurchaseAddress
     validates :addresses
     validates :phone_number, length: { maximum: 11 }
     validates :phone_number, numericality: true
+    validates :token
+
 
 
   end
