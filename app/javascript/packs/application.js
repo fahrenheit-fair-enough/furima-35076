@@ -17,3 +17,5 @@ require("channels")
 // const imagePath = (name) => images(name, true)
 
 require("../product_price");
+
+require("../card");
