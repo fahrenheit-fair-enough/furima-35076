@@ -44,4 +44,3 @@ class PurchaseRecordsController < ApplicationController
     )
   end
 end
-
