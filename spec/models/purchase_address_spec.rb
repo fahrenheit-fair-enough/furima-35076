@@ -33,19 +33,19 @@ RSpec.describe PurchaseAddress, type: :model do
       it '出品者以外のユーザーがログイン時でないと購入できないこと' do
         @purchase_address.user_id = nil
         @purchase_address.valid?
-        expect(@purchase_address.errors.full_messages).to include("Userを入力してください")
+        expect(@purchase_address.errors.full_messages).to include('Userを入力してください')
       end
 
       it '購入商品情報がないと購入できないこと' do
         @purchase_address.product_id = nil
         @purchase_address.valid?
-        expect(@purchase_address.errors.full_messages).to include("Productを入力してください")
+        expect(@purchase_address.errors.full_messages).to include('Productを入力してください')
       end
 
       it '郵便番号がないと購入できないこと' do
         @purchase_address.postal_code = nil
         @purchase_address.valid?
-        expect(@purchase_address.errors.full_messages).to include("郵便番号を入力してください", "郵便番号をハイフンを加えて入力してください")
+        expect(@purchase_address.errors.full_messages).to include('郵便番号を入力してください', '郵便番号をハイフンを加えて入力してください')
       end
 
       it '郵便番号はハイフンがないと保存できないこと' do
@@ -59,7 +59,7 @@ RSpec.describe PurchaseAddress, type: :model do
       it '都道府県がないと購入できないこと' do
         @purchase_address.prefecture_id = ''
         @purchase_address.valid?
-        expect(@purchase_address.errors.full_messages).to include("発送元の地域を入力してください", "発送元の地域は数値で入力してください")
+        expect(@purchase_address.errors.full_messages).to include('発送元の地域を入力してください', '発送元の地域は数値で入力してください')
       end
 
       it '都道府県が---では購入できないこと' do
@@ -73,7 +73,7 @@ RSpec.describe PurchaseAddress, type: :model do
       it '市区町村がないと購入できないこと' do
         @purchase_address.city = ''
         @purchase_address.valid?
-        expect(@purchase_address.errors.full_messages).to include("市区町村を入力してください")
+        expect(@purchase_address.errors.full_messages).to include('市区町村を入力してください')
       end
 
       # 番地
@@ -81,7 +81,7 @@ RSpec.describe PurchaseAddress, type: :model do
       it '番地がないと購入できないこと' do
         @purchase_address.addresses = ''
         @purchase_address.valid?
-        expect(@purchase_address.errors.full_messages).to include("番地を入力してください")
+        expect(@purchase_address.errors.full_messages).to include('番地を入力してください')
       end
 
       # 電話番号
@@ -89,7 +89,7 @@ RSpec.describe PurchaseAddress, type: :model do
       it '電話番号がないと購入できないこと' do
         @purchase_address.phone_number = ''
         @purchase_address.valid?
-        expect(@purchase_address.errors.full_messages).to include("電話番号を入力してください", "電話番号は数値で入力してください")
+        expect(@purchase_address.errors.full_messages).to include('電話番号を入力してください', '電話番号は数値で入力してください')
       end
 
       it '電話番号は11桁以上の数値は保存できないこと' do
@@ -109,7 +109,7 @@ RSpec.describe PurchaseAddress, type: :model do
       it 'クレジットカード情報がないと決済できないこと' do
         @purchase_address.token = ''
         @purchase_address.valid?
-        expect(@purchase_address.errors.full_messages).to include("クレジットカード情報を入力してください")
+        expect(@purchase_address.errors.full_messages).to include('クレジットカード情報を入力してください')
       end
     end
   end
