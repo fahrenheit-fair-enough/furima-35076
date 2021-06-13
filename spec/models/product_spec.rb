@@ -28,55 +28,55 @@ RSpec.describe Product, type: :model do
       it 'imageがないと登録できないこと' do
         @product.image = nil
         @product.valid?
-        expect(@product.errors.full_messages).to include("Image can't be blank")
+        expect(@product.errors.full_messages).to include("商品画像を入力してください")
       end
 
       it '商品名がないと登録できないこと' do
         @product.name = ''
         @product.valid?
-        expect(@product.errors.full_messages).to include("Name can't be blank")
+        expect(@product.errors.full_messages).to include("商品名を入力してください")
       end
 
       it '商品の説明がないと登録できないこと' do
         @product.explain = ''
         @product.valid?
-        expect(@product.errors.full_messages).to include("Explain can't be blank")
+        expect(@product.errors.full_messages).to include("商品説明を入力してください")
       end
 
       it 'カテゴリーの情報がないと登録できないこと' do
         @product.category_id = ''
         @product.valid?
-        expect(@product.errors.full_messages).to include("Category can't be blank")
+        expect(@product.errors.full_messages).to include("カテゴリーを入力してください", "カテゴリーは数値で入力してください")
       end
 
       it '商品の状態についての情報がないと登録できないこと' do
         @product.status_id = ''
         @product.valid?
-        expect(@product.errors.full_messages).to include("Status can't be blank")
+        expect(@product.errors.full_messages).to include("商品の状態を入力してください", "商品の状態は数値で入力してください")
       end
 
       it '配送料の負担についての情報がないと登録できないこと' do
         @product.shipping_free_status_id = ''
         @product.valid?
-        expect(@product.errors.full_messages).to include("Shipping free status can't be blank")
+        expect(@product.errors.full_messages).to include("配送料の負担を入力してください", "配送料の負担は数値で入力してください")
       end
 
       it '発送元の地域についての情報がないと登録できないこと' do
         @product.prefecture_id = ''
         @product.valid?
-        expect(@product.errors.full_messages).to include("Prefecture can't be blank")
+        expect(@product.errors.full_messages).to include("発送元の地域を入力してください", "発送元の地域は数値で入力してください")
       end
 
       it '発送までの日数についての情報がないと登録できないこと' do
         @product.scheduled_delivery_id = ''
         @product.valid?
-        expect(@product.errors.full_messages).to include("Scheduled delivery can't be blank")
+        expect(@product.errors.full_messages).to include("発送までの日数を入力してください", "発送までの日数は数値で入力してください")
       end
 
       it '販売価格についての情報がないと登録できないこと' do
         @product.price = ''
         @product.valid?
-        expect(@product.errors.full_messages).to include("Price can't be blank")
+        expect(@product.errors.full_messages).to include("販売価格は一覧にありません", "販売価格を入力してください")
       end
 
       # 下記models/product.rbを参照に、アクティブハッシュの5つのカラムについてバリデーションであるother_than: 1 を確かめるテストを5つ
@@ -90,31 +90,31 @@ RSpec.describe Product, type: :model do
       it 'カテゴリーの情報が---では登録できないこと' do
         @product.category_id = 1
         @product.valid?
-        expect(@product.errors.full_messages).to include('Category must be other than 1')
+        expect(@product.errors.full_messages).to include('カテゴリーは1以外の値にしてください')
       end
 
       it '商品の状態についての情報が---では登録できないこと' do
         @product.status_id = 1
         @product.valid?
-        expect(@product.errors.full_messages).to include('Status must be other than 1')
+        expect(@product.errors.full_messages).to include('商品の状態は1以外の値にしてください')
       end
 
       it '配送料の負担についての情報が---では登録できないこと' do
         @product.shipping_free_status_id = 1
         @product.valid?
-        expect(@product.errors.full_messages).to include('Shipping free status must be other than 1')
+        expect(@product.errors.full_messages).to include('配送料の負担は1以外の値にしてください')
       end
 
       it '発送元の地域についての情報が---では登録できないこと' do
         @product.prefecture_id = 1
         @product.valid?
-        expect(@product.errors.full_messages).to include('Prefecture must be other than 1')
+        expect(@product.errors.full_messages).to include('発送元の地域は1以外の値にしてください')
       end
 
       it '発送までの日数についての情報が---では登録できないこと' do
         @product.scheduled_delivery_id = 1
         @product.valid?
-        expect(@product.errors.full_messages).to include('Scheduled delivery must be other than 1')
+        expect(@product.errors.full_messages).to include('発送までの日数は1以外の値にしてください')
       end
 
       # 販売価格は、¥300~¥9,999,999の間のみ保存可能であること
@@ -122,13 +122,13 @@ RSpec.describe Product, type: :model do
       it '販売価格は、¥0~¥299は登録できないこと' do
         @product.price = 299
         @product.valid?
-        expect(@product.errors.full_messages).to include('Price is not included in the list')
+        expect(@product.errors.full_messages).to include('販売価格は一覧にありません')
       end
 
       it '販売価格は、¥10,000,000~は登録できないこと' do
         @product.price = 10_000_000
         @product.valid?
-        expect(@product.errors.full_messages).to include('Price is not included in the list')
+        expect(@product.errors.full_messages).to include('販売価格は一覧にありません')
       end
 
       # 販売価格は半角数字のみ保存可能であること
@@ -136,19 +136,19 @@ RSpec.describe Product, type: :model do
       it '販売価格は全角数字では登録できないこと' do
         @product.price = '１２３４５'
         @product.valid?
-        expect(@product.errors.full_messages).to include('Price is not included in the list')
+        expect(@product.errors.full_messages).to include('販売価格は一覧にありません')
       end
 
       it '販売価格は英数字混合では登録できないこと' do
         @product.price = '123abc'
         @product.valid?
-        expect(@product.errors.full_messages).to include('Price is not included in the list')
+        expect(@product.errors.full_messages).to include('販売価格は一覧にありません')
       end
 
       it '販売価格は半角英語のみでは登録できないこと' do
         @product.price = 'abcdef'
         @product.valid?
-        expect(@product.errors.full_messages).to include('Price is not included in the list')
+        expect(@product.errors.full_messages).to include('販売価格は一覧にありません')
       end
     end
   end
